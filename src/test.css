@@ -1,0 +1,13 @@
+
+
+body, .container {
+  width: 100%;
+  color: #333;
+}
+
+@media screen {
+  .box {
+    margin: 10px;
+    padding: 1em !important;
+  }
+}
