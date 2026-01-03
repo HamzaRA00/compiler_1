@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Product Store</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        .product-card { border: 1px solid #ccc; padding: 10px; margin: 10px 0; border-radius: 5px; }
+        .product-card h3 { margin-top: 0; }
+        .add-link { display: inline-block; margin-bottom: 20px; padding: 10px 15px; background-color: #28a745; color: white; text-decoration: none; border-radius: 5px; }
+    </style>
+</head>
+<body>
+    <h1>Our Products</h1>
+    <a href="{{ url_for('add_product') }}" class="add-link">Add New Product</a>
+
+    {% if products %}
+        {% for product in products %}
+            <div class="product-card">
+                <h3>{{ product.name }}</h3>
+                <p>Price: ${{ product.price }}</p>
+                <a href="{{ url_for('product_detail', product_id=product.id) }}">View Details</a>
+            </div>
+        {% endfor %}
+    {% else %}
+        <p>No products available yet.</p>
+    {% endif %}
+</body>
+</html>

@@ -1,6 +1,7 @@
+// Generated from src/HTMLParser.g4 by ANTLR 4.13.2
+
 package gen;
 
-// Generated from C:/Users/hamza/compiler/src/HTMLParser.g4 by ANTLR 4.13.2
 import org.antlr.v4.runtime.tree.ParseTreeListener;
 
 /**
@@ -68,6 +69,36 @@ public interface HTMLParserListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitHtmlAttribute(HTMLParser.HtmlAttributeContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link HTMLParser#jinjaStatement}.
+	 * @param ctx the parse tree
+	 */
+	void enterJinjaStatement(HTMLParser.JinjaStatementContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link HTMLParser#jinjaStatement}.
+	 * @param ctx the parse tree
+	 */
+	void exitJinjaStatement(HTMLParser.JinjaStatementContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link HTMLParser#jinjaExpression}.
+	 * @param ctx the parse tree
+	 */
+	void enterJinjaExpression(HTMLParser.JinjaExpressionContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link HTMLParser#jinjaExpression}.
+	 * @param ctx the parse tree
+	 */
+	void exitJinjaExpression(HTMLParser.JinjaExpressionContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link HTMLParser#jinjaComment}.
+	 * @param ctx the parse tree
+	 */
+	void enterJinjaComment(HTMLParser.JinjaCommentContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link HTMLParser#jinjaComment}.
+	 * @param ctx the parse tree
+	 */
+	void exitJinjaComment(HTMLParser.JinjaCommentContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link HTMLParser#htmlChardata}.
 	 * @param ctx the parse tree

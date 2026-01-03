@@ -45,10 +45,18 @@ public class HtmlAstVisitor extends HTMLParserBaseVisitor<HtmlNode> {
             HtmlElementNode element = new HtmlElementNode(tagName);
             setLine(element, ctx);
 
-            for (HTMLParser.HtmlAttributeContext attrCtx : ctx.htmlAttribute()) {
-                HtmlAttributeNode attr = (HtmlAttributeNode) visit(attrCtx);
-                if (attr != null) {
-                    element.addAttribute(attr);
+            for (int i = 0; i < ctx.getChildCount(); i++) {
+                var child = ctx.getChild(i);
+                if (child instanceof HTMLParser.HtmlAttributeContext) {
+                    HtmlAttributeNode attr = (HtmlAttributeNode) visit(child);
+                    if (attr != null) {
+                        element.addAttribute(attr);
+                    }
+                } else if (child instanceof HTMLParser.JinjaStatementContext || child instanceof HTMLParser.JinjaExpressionContext) {
+                    HtmlNode jinjaNode = visit(child);
+                    if (jinjaNode != null) {
+                        element.addChild(jinjaNode);
+                    }
                 }
             }
 
@@ -61,6 +69,12 @@ public class HtmlAstVisitor extends HTMLParserBaseVisitor<HtmlNode> {
                 }
             }
             return element;
+        } else if (ctx.jinjaStatement() != null && !ctx.jinjaStatement().isEmpty()) {
+            return visit(ctx.jinjaStatement(0));
+        } else if (ctx.jinjaExpression() != null && !ctx.jinjaExpression().isEmpty()) {
+            return visit(ctx.jinjaExpression(0));
+        } else if (ctx.jinjaComment() != null) {
+            return visit(ctx.jinjaComment());
         } else if (ctx.style() != null) {
             // Handle <style> tag content via StyleContext
             HTMLParser.StyleContext styleCtx = ctx.style();
@@ -109,13 +123,39 @@ public class HtmlAstVisitor extends HTMLParserBaseVisitor<HtmlNode> {
     @Override
     public HtmlNode visitHtmlAttribute(HTMLParser.HtmlAttributeContext ctx) {
         String name = ctx.TAG_NAME().getText();
-        String value = ctx.ATTVALUE_VALUE() != null ? ctx.ATTVALUE_VALUE().getText() : "";
-        // Remove quotes if present
-        if (value.startsWith("\"") && value.endsWith("\"") || value.startsWith("'") && value.endsWith("'")) {
-            value = value.substring(1, value.length() - 1);
+        String value = "";
+        if (ctx.ATTVALUE_VALUE() != null) {
+            value = ctx.ATTVALUE_VALUE().getText();
+            // Remove quotes if present
+            if (value.startsWith("\"") && value.endsWith("\"") || value.startsWith("'") && value.endsWith("'")) {
+                value = value.substring(1, value.length() - 1);
+            }
+        } else if (ctx.ATTVALUE_JINJA_EXPRESSION() != null) {
+            value = ctx.ATTVALUE_JINJA_EXPRESSION().getText();
+        } else if (ctx.ATTVALUE_JINJA_STATEMENT() != null) {
+            value = ctx.ATTVALUE_JINJA_STATEMENT().getText();
+        } else if (ctx.jinjaExpression() != null) {
+            value = ctx.jinjaExpression().getText();
+        } else if (ctx.jinjaStatement() != null) {
+            value = ctx.jinjaStatement().getText();
         }
         HtmlAttributeNode attrNode = new HtmlAttributeNode(name, value);
         return setLine(attrNode, ctx);
+    }
+
+    @Override
+    public HtmlNode visitJinjaStatement(HTMLParser.JinjaStatementContext ctx) {
+        return setLine(new JinjaStatementNode(ctx.getText()), ctx);
+    }
+
+    @Override
+    public HtmlNode visitJinjaExpression(HTMLParser.JinjaExpressionContext ctx) {
+        return setLine(new JinjaExpressionNode(ctx.getText()), ctx);
+    }
+
+    @Override
+    public HtmlNode visitJinjaComment(HTMLParser.JinjaCommentContext ctx) {
+        return setLine(new JinjaCommentNode(ctx.getText()), ctx);
     }
 
     @Override

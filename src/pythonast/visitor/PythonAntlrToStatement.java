@@ -69,13 +69,13 @@ public class PythonAntlrToStatement extends FinalPythonParserBaseVisitor<Stateme
                 if (s != null) res = s;
             }
             if (ctx.getChild(i) instanceof FinalPythonParser.ImportStmtContext
-                || ctx.getChild(i) instanceof FinalPythonParser.PassStmtContext
-                || ctx.getChild(i) instanceof FinalPythonParser.FlowStmtContext
-                || ctx.getChild(i) instanceof FinalPythonParser.AssertStmtContext
-                || ctx.getChild(i) instanceof FinalPythonParser.GlobalStmtContext
-                || ctx.getChild(i) instanceof FinalPythonParser.NonlocalStmtContext
-                || ctx.getChild(i) instanceof FinalPythonParser.DelStmtContext
-                || ctx.getChild(i) instanceof FinalPythonParser.ExpressionStmtContext) {
+                    || ctx.getChild(i) instanceof FinalPythonParser.PassStmtContext
+                    || ctx.getChild(i) instanceof FinalPythonParser.FlowStmtContext
+                    || ctx.getChild(i) instanceof FinalPythonParser.AssertStmtContext
+                    || ctx.getChild(i) instanceof FinalPythonParser.GlobalStmtContext
+                    || ctx.getChild(i) instanceof FinalPythonParser.NonlocalStmtContext
+                    || ctx.getChild(i) instanceof FinalPythonParser.DelStmtContext
+                    || ctx.getChild(i) instanceof FinalPythonParser.ExpressionStmtContext) {
                 Statement s = visit(ctx.getChild(i));
                 if (s != null) res = s;
             }
@@ -287,13 +287,13 @@ public class PythonAntlrToStatement extends FinalPythonParserBaseVisitor<Stateme
         // map deeper alts
         for (int i = 0; i < ctx.getChildCount(); i++) {
             if (ctx.getChild(i) instanceof FinalPythonParser.ImportStmtFullContext) {
-                return new ImportStmt(line(ctx.start));
+                return new ImportStmt(line(ctx.start), ctx.getChild(i).getText());
             }
             if (ctx.getChild(i) instanceof FinalPythonParser.FromImportStmtContext) {
-                return new FromImportStmt(line(ctx.start));
+                return new FromImportStmt(line(ctx.start), ctx.getChild(i).getText());
             }
         }
-        return new ImportStmt(line(ctx.start));
+        return new ImportStmt(line(ctx.start), ctx.getText());
     }
 
     @Override

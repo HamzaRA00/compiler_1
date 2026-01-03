@@ -1,6 +1,9 @@
 
 
 lexer grammar HTMLLexer;
+@header{
+package gen;
+}
 
 HTML_COMMENT: '<!--' .*? '-->';
 
@@ -22,7 +25,11 @@ STYLE_OPEN: '<style' .*? '>' -> pushMode(STYLE);
 
 TAG_OPEN: '<' -> pushMode(TAG);
 
-HTML_TEXT: ~'<'+;
+HTML_TEXT: ~['<{]+ | '{';
+
+JINJA_STATEMENT: '{%' .*? '%}';
+JINJA_EXPRESSION: '{{' .*? '}}';
+JINJA_COMMENT: '{#' .*? '#}';
 
 // tag declarations
 
@@ -41,6 +48,10 @@ TAG_EQUALS: '=' -> pushMode(ATTVALUE);
 TAG_NAME: TAG_NameStartChar TAG_NameChar*;
 
 TAG_WHITESPACE: [ \t\r\n] -> channel(HIDDEN);
+
+TAG_JINJA_STATEMENT: '{%' .*? '%}';
+TAG_JINJA_EXPRESSION: '{{' .*? '}}';
+TAG_JINJA_COMMENT: '{#' .*? '#}';
 
 fragment HEXDIGIT: [a-fA-F0-9];
 
@@ -85,11 +96,13 @@ STYLE_SHORT_BODY: .*? '</>' -> popMode;
 // attribute values
 
 mode ATTVALUE;
-
 // an attribute value may have spaces b/t the '=' and the value
 ATTVALUE_VALUE: ' '* ATTRIBUTE -> popMode;
+ATTVALUE_JINJA_STATEMENT: ' '* '{%' .*? '%}' -> popMode;
+ATTVALUE_JINJA_EXPRESSION: ' '* '{{' .*? '}}' -> popMode;
+ATTVALUE_JINJA_COMMENT: ' '* '{#' .*? '#}' -> popMode;
 
-ATTRIBUTE: DOUBLE_QUOTE_STRING | SINGLE_QUOTE_STRING | ATTCHARS | HEXCHARS | DECCHARS;
+fragment ATTRIBUTE: DOUBLE_QUOTE_STRING | SINGLE_QUOTE_STRING | ATTCHARS | HEXCHARS | DECCHARS;
 
 fragment ATTCHARS: ATTCHAR+ ' '?;
 

@@ -1,21 +1,24 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Test Page</title>
-    <style>
-        h1 { color: red; font-size: 24px; } .main-title { font-weight: bold; } #page-title { text-align: center; }
-    </style>
+    <title>{{ title }}</title>
 </head>
 <body>
-    <h1 id="main-title" class="title">Welcome to our Product Catalog</h1>
-    <div class="container">
-        <h2>Products</h2>
-        <ul id="product-list">
-            <li class="product-item">Product A <button class="delete-btn">Delete</button></li>
-            <li class="product-item">Product B <button class="delete-btn">Delete</button></li>
-            <li class="product-item">Product C <button class="delete-btn">Delete</button></li>
-        </ul>
-        <button id="add-product-btn">Add Product</button>
+    {% if user %}
+        <h1>Hello {{ user.name }}!</h1>
+    {% else %}
+        <h1>Hello Guest!</h1>
+    {% endif %}
+
+    <ul>
+    {% for item in items %}
+        <li class="{{ item.class }}">{{ item.name }}</li>
+    {% endfor %}
+    </ul>
+
+    {# This is a comment #}
+    <div {% if active %}id="main"{% endif %}>
+        Content
     </div>
 </body>
 </html>

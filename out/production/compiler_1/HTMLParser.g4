@@ -1,5 +1,4 @@
 
-
 parser grammar HTMLParser;
 @header{
 package gen;
@@ -22,21 +21,39 @@ htmlElements
     ;
 
 htmlElement
-    : TAG_OPEN TAG_NAME htmlAttribute* (
+    : TAG_OPEN TAG_NAME (htmlAttribute | jinjaStatement | jinjaExpression)* (
         TAG_CLOSE (htmlContent TAG_OPEN TAG_SLASH TAG_NAME TAG_CLOSE)?
         | TAG_SLASH_CLOSE
     )
     | SCRIPTLET
+    | jinjaStatement
+    | jinjaExpression
+    | jinjaComment
     | script
     | style
     ;
 
 htmlContent
-    : htmlChardata? ((htmlElement | CDATA | htmlComment) htmlChardata?)*
+    : htmlChardata? ((htmlElement | CDATA | htmlComment | jinjaStatement | jinjaExpression | jinjaComment) htmlChardata?)*
     ;
 
 htmlAttribute
-    : TAG_NAME (TAG_EQUALS ATTVALUE_VALUE)?
+    : TAG_NAME (TAG_EQUALS (ATTVALUE_VALUE | jinjaExpression | jinjaStatement))?
+    ;
+
+jinjaStatement
+    : JINJA_STATEMENT
+    | TAG_JINJA_STATEMENT
+    ;
+
+jinjaExpression
+    : JINJA_EXPRESSION
+    | TAG_JINJA_EXPRESSION
+    ;
+
+jinjaComment
+    : JINJA_COMMENT
+    | TAG_JINJA_COMMENT
     ;
 
 htmlChardata

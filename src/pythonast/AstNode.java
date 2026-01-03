@@ -14,6 +14,11 @@ public abstract class AstNode {
         return getClass().getSimpleName() + " line " + line;
     }
 
+    @Override
+    public String toString() {
+        return nodeInfo();
+    }
+
     public List<AstNode> children() {
         return Collections.emptyList();
     }

@@ -24,27 +24,33 @@ public class Main {
     }
 
     private static void testHtml() throws java.io.IOException {
-        String html = CharStreams.fromFileName("test.html").toString();
-        
-        System.out.println("Parsing HTML:");
-        System.out.println(html);
-        System.out.println("\nGenerated HTML AST:");
+        testHtmlFile("test.html");
+        testHtmlFile("index.html");
+        testHtmlFile("add.html");
+        testHtmlFile("detail.html");
+        testHtmlFile("404.html");
+        testHtmlFile("new_test.html");
+    }
 
+    private static void testHtmlFile(String fileName) throws java.io.IOException {
+        String html = CharStreams.fromFileName(fileName).toString();
+        
+        System.out.println("\nParsing HTML File: " + fileName);
+        System.out.println(html);
+        
         HTMLLexer lexer = new HTMLLexer(CharStreams.fromString(html));
         CommonTokenStream tokens = new CommonTokenStream(lexer);
         HTMLParser parser = new HTMLParser(tokens);
         
         HTMLParser.HtmlDocumentContext tree = parser.htmlDocument();
-        System.out.println("\nGenerated HTML Parser Tree:");
-        System.out.println(tree.toStringTree(parser));
         
         HtmlAstVisitor visitor = new HtmlAstVisitor();
         HtmlNode ast = visitor.visit(tree);
         
-        System.out.println("\nGenerated HTML AST:");
+        System.out.println("\nGenerated HTML AST for " + fileName + ":");
         System.out.println(ast.toString());
 
-        System.out.println("\nAnalyzing HTML Symbols:");
+        System.out.println("\nAnalyzing HTML Symbols for " + fileName + ":");
         HtmlSemanticVisitor semanticVisitor = new HtmlSemanticVisitor();
         SymbolTable symbolTable = semanticVisitor.visit(ast);
         System.out.println(symbolTable.toString());

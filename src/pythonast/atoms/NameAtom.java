@@ -9,5 +9,9 @@ public class NameAtom extends Expression {
         super(line);
         this.name = name;
     }
-}
 
+    @Override
+    public String nodeInfo() {
+        return getClass().getSimpleName() + " line " + line + " value=" + name;
+    }
+}

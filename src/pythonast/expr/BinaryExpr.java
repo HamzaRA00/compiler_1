@@ -9,11 +9,18 @@ import java.util.List;
 public class BinaryExpr extends Expression {
     public final Expression left;
     public final Expression right;
+    public final String operator;
 
-    public BinaryExpr(int line, Expression left, Expression right) {
+    public BinaryExpr(int line, Expression left, Expression right, String operator) {
         super(line);
         this.left = left;
         this.right = right;
+        this.operator = operator;
+    }
+
+    @Override
+    public String nodeInfo() {
+        return getClass().getSimpleName() + " line " + line + (operator != null ? " value=" + operator : "");
     }
 
     @Override
@@ -24,4 +31,3 @@ public class BinaryExpr extends Expression {
         return list;
     }
 }
-

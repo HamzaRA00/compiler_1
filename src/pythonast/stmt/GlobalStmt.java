@@ -9,4 +9,9 @@ public class GlobalStmt extends Statement {
         super(line);
         this.text = text;
     }
+
+    @Override
+    public String nodeInfo() {
+        return getClass().getSimpleName() + " line " + line + " value=" + text;
+    }
 }

@@ -13,6 +13,12 @@ public class HtmlSemanticVisitor {
             visitStyle((HtmlStyleNode) node);
         } else if (node instanceof HtmlElementNode) {
             visitElement((HtmlElementNode) node);
+        } else if (node instanceof JinjaStatementNode) {
+            visitJinjaStatement((JinjaStatementNode) node);
+        } else if (node instanceof JinjaExpressionNode) {
+            visitJinjaExpression((JinjaExpressionNode) node);
+        } else if (node instanceof JinjaCommentNode) {
+            visitJinjaComment((JinjaCommentNode) node);
         }
         return symbolTable;
     }
@@ -54,6 +60,18 @@ public class HtmlSemanticVisitor {
         System.out.println(cssSemanticVisitor.getSymbolTable().toString());
         // Merge the CSS symbol table into the HTML symbol table
         symbolTable.merge(cssSemanticVisitor.getSymbolTable());
+    }
+
+    private void visitJinjaStatement(JinjaStatementNode node) {
+        symbolTable.addSymbol(node.getContent(), "JINJA_STATEMENT", "", node.getLineNumber());
+    }
+
+    private void visitJinjaExpression(JinjaExpressionNode node) {
+        symbolTable.addSymbol(node.getContent(), "JINJA_EXPRESSION", "", node.getLineNumber());
+    }
+
+    private void visitJinjaComment(JinjaCommentNode node) {
+        symbolTable.addSymbol(node.getContent(), "JINJA_COMMENT", "", node.getLineNumber());
     }
 
     public SymbolTable getSymbolTable() {

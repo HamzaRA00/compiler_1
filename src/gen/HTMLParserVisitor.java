@@ -1,6 +1,7 @@
+// Generated from src/HTMLParser.g4 by ANTLR 4.13.2
+
 package gen;
 
-// Generated from C:/Users/hamza/compiler/src/HTMLParser.g4 by ANTLR 4.13.2
 import org.antlr.v4.runtime.tree.ParseTreeVisitor;
 
 /**
@@ -47,6 +48,24 @@ public interface HTMLParserVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitHtmlAttribute(HTMLParser.HtmlAttributeContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link HTMLParser#jinjaStatement}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitJinjaStatement(HTMLParser.JinjaStatementContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link HTMLParser#jinjaExpression}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitJinjaExpression(HTMLParser.JinjaExpressionContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link HTMLParser#jinjaComment}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitJinjaComment(HTMLParser.JinjaCommentContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link HTMLParser#htmlChardata}.
 	 * @param ctx the parse tree
