@@ -16,96 +16,96 @@ public class PythonAntlrToExpression extends FinalPythonParserBaseVisitor<Expres
     public Expression visitAddSubExpr(FinalPythonParser.AddSubExprContext ctx) {
         Expression left = visit(ctx.getChild(0));
         Expression right = visit(ctx.getChild(2));
-        return new AddSubExpr(line(ctx.start), left, right);
+        return new AddSubExpr(line(ctx.start), left, right, ctx.getChild(1).getText());
     }
 
     @Override
     public Expression visitMulDivExpr(FinalPythonParser.MulDivExprContext ctx) {
         Expression left = visit(ctx.getChild(0));
         Expression right = visit(ctx.getChild(2));
-        return new MulDivExpr(line(ctx.start), left, right);
+        return new MulDivExpr(line(ctx.start), left, right, ctx.getChild(1).getText());
     }
 
     @Override
     public Expression visitShiftExpr(FinalPythonParser.ShiftExprContext ctx) {
         Expression left = visit(ctx.getChild(0));
         Expression right = visit(ctx.getChild(2));
-        return new ShiftExpr(line(ctx.start), left, right);
+        return new ShiftExpr(line(ctx.start), left, right, ctx.getChild(1).getText());
     }
 
     @Override
     public Expression visitBitAndExpr(FinalPythonParser.BitAndExprContext ctx) {
         Expression left = visit(ctx.getChild(0));
         Expression right = visit(ctx.getChild(2));
-        return new BitAndExpr(line(ctx.start), left, right);
+        return new BitAndExpr(line(ctx.start), left, right, ctx.getChild(1).getText());
     }
 
     @Override
     public Expression visitBitXorExpr(FinalPythonParser.BitXorExprContext ctx) {
         Expression left = visit(ctx.getChild(0));
         Expression right = visit(ctx.getChild(2));
-        return new BitXorExpr(line(ctx.start), left, right);
+        return new BitXorExpr(line(ctx.start), left, right, ctx.getChild(1).getText());
     }
 
     @Override
     public Expression visitBitOrExpr(FinalPythonParser.BitOrExprContext ctx) {
         Expression left = visit(ctx.getChild(0));
         Expression right = visit(ctx.getChild(2));
-        return new BitOrExpr(line(ctx.start), left, right);
+        return new BitOrExpr(line(ctx.start), left, right, ctx.getChild(1).getText());
     }
 
     @Override
     public Expression visitCompareExpr(FinalPythonParser.CompareExprContext ctx) {
         Expression left = visit(ctx.getChild(0));
         Expression right = visit(ctx.getChild(2));
-        return new CompareExpr(line(ctx.start), left, right);
+        return new CompareExpr(line(ctx.start), left, right, ctx.getChild(1).getText());
     }
 
     @Override
     public Expression visitIsNotExpr(FinalPythonParser.IsNotExprContext ctx) {
         Expression left = visit(ctx.getChild(0));
         Expression right = visit(ctx.getChild(3));
-        return new IsNotExpr(line(ctx.start), left, right);
+        return new IsNotExpr(line(ctx.start), left, right, "is not");
     }
 
     @Override
     public Expression visitNotInExpr(FinalPythonParser.NotInExprContext ctx) {
         Expression left = visit(ctx.getChild(0));
         Expression right = visit(ctx.getChild(3));
-        return new NotInExpr(line(ctx.start), left, right);
+        return new NotInExpr(line(ctx.start), left, right, "not in");
     }
 
     @Override
     public Expression visitUnaryExpr(FinalPythonParser.UnaryExprContext ctx) {
         Expression inner = visit(ctx.getChild(1));
-        return new UnaryExpr(line(ctx.start), inner);
+        return new UnaryExpr(line(ctx.start), inner, ctx.getChild(0).getText());
     }
 
     @Override
     public Expression visitNotExpr(FinalPythonParser.NotExprContext ctx) {
         Expression inner = visit(ctx.getChild(1));
-        return new UnaryExpr(line(ctx.start), inner);
+        return new UnaryExpr(line(ctx.start), inner, "not");
     }
 
     @Override
     public Expression visitPowerExpr(FinalPythonParser.PowerExprContext ctx) {
         Expression left = visit(ctx.getChild(0));
         Expression right = visit(ctx.getChild(2));
-        return new PowerExpr(line(ctx.start), left, right);
+        return new PowerExpr(line(ctx.start), left, right, ctx.getChild(1).getText());
     }
 
     @Override
     public Expression visitLogicalAndExpr(FinalPythonParser.LogicalAndExprContext ctx) {
         Expression left = visit(ctx.getChild(0));
         Expression right = visit(ctx.getChild(2));
-        return new LogicalAndExpr(line(ctx.start), left, right);
+        return new LogicalAndExpr(line(ctx.start), left, right, "and");
     }
 
     @Override
     public Expression visitLogicalOrExpr(FinalPythonParser.LogicalOrExprContext ctx) {
         Expression left = visit(ctx.getChild(0));
         Expression right = visit(ctx.getChild(2));
-        return new LogicalOrExpr(line(ctx.start), left, right);
+        return new LogicalOrExpr(line(ctx.start), left, right, "or");
     }
 
     @Override

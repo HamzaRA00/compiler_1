@@ -15,6 +15,11 @@ public class FunctionDef extends Statement {
         this.name = name;
     }
 
+    @Override
+    public String nodeInfo() {
+        return getClass().getSimpleName() + " line " + line + " name=" + name;
+    }
+
     public void addToBody(AstNode node) {
         if (node != null) body.add(node);
     }
