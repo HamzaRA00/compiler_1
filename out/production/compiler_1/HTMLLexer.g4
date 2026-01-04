@@ -25,7 +25,7 @@ STYLE_OPEN: '<style' .*? '>' -> pushMode(STYLE);
 
 TAG_OPEN: '<' -> pushMode(TAG);
 
-HTML_TEXT: ~['<{]+ | '{';
+HTML_TEXT: ~[<{]+ | '{';
 
 JINJA_STATEMENT: '{%' .*? '%}';
 JINJA_EXPRESSION: '{{' .*? '}}';
@@ -96,11 +96,13 @@ STYLE_SHORT_BODY: .*? '</>' -> popMode;
 // attribute values
 
 mode ATTVALUE;
-
 // an attribute value may have spaces b/t the '=' and the value
 ATTVALUE_VALUE: ' '* ATTRIBUTE -> popMode;
+ATTVALUE_JINJA_STATEMENT: ' '* '{%' .*? '%}' -> popMode;
+ATTVALUE_JINJA_EXPRESSION: ' '* '{{' .*? '}}' -> popMode;
+ATTVALUE_JINJA_COMMENT: ' '* '{#' .*? '#}' -> popMode;
 
-ATTRIBUTE: DOUBLE_QUOTE_STRING | SINGLE_QUOTE_STRING | ATTCHARS | HEXCHARS | DECCHARS;
+fragment ATTRIBUTE: DOUBLE_QUOTE_STRING | SINGLE_QUOTE_STRING | ATTCHARS | HEXCHARS | DECCHARS;
 
 fragment ATTCHARS: ATTCHAR+ ' '?;
 

@@ -1,6 +1,7 @@
 // Generated from src/HTMLParser.g4 by ANTLR 4.13.2
-
 package gen;
+
+
 
 import org.antlr.v4.runtime.atn.*;
 import org.antlr.v4.runtime.dfa.DFA;
@@ -130,6 +131,14 @@ public class HTMLParser extends Parser {
 		}
 		@Override public int getRuleIndex() { return RULE_htmlDocument; }
 		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof HTMLParserListener ) ((HTMLParserListener)listener).enterHtmlDocument(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof HTMLParserListener ) ((HTMLParserListener)listener).exitHtmlDocument(this);
+		}
+		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof HTMLParserVisitor ) return ((HTMLParserVisitor<? extends T>)visitor).visitHtmlDocument(this);
 			else return visitor.visitChildren(this);
@@ -248,6 +257,14 @@ public class HTMLParser extends Parser {
 		}
 		@Override public int getRuleIndex() { return RULE_scriptletOrSeaWs; }
 		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof HTMLParserListener ) ((HTMLParserListener)listener).enterScriptletOrSeaWs(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof HTMLParserListener ) ((HTMLParserListener)listener).exitScriptletOrSeaWs(this);
+		}
+		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof HTMLParserVisitor ) return ((HTMLParserVisitor<? extends T>)visitor).visitScriptletOrSeaWs(this);
 			else return visitor.visitChildren(this);
@@ -299,6 +316,14 @@ public class HTMLParser extends Parser {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_htmlElements; }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof HTMLParserListener ) ((HTMLParserListener)listener).enterHtmlElements(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof HTMLParserListener ) ((HTMLParserListener)listener).exitHtmlElements(this);
+		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof HTMLParserVisitor ) return ((HTMLParserVisitor<? extends T>)visitor).visitHtmlElements(this);
@@ -410,6 +435,14 @@ public class HTMLParser extends Parser {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_htmlElement; }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof HTMLParserListener ) ((HTMLParserListener)listener).enterHtmlElement(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof HTMLParserListener ) ((HTMLParserListener)listener).exitHtmlElement(this);
+		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof HTMLParserVisitor ) return ((HTMLParserVisitor<? extends T>)visitor).visitHtmlElement(this);
@@ -613,6 +646,14 @@ public class HTMLParser extends Parser {
 		}
 		@Override public int getRuleIndex() { return RULE_htmlContent; }
 		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof HTMLParserListener ) ((HTMLParserListener)listener).enterHtmlContent(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof HTMLParserListener ) ((HTMLParserListener)listener).exitHtmlContent(this);
+		}
+		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof HTMLParserVisitor ) return ((HTMLParserVisitor<? extends T>)visitor).visitHtmlContent(this);
 			else return visitor.visitChildren(this);
@@ -732,6 +773,14 @@ public class HTMLParser extends Parser {
 		}
 		@Override public int getRuleIndex() { return RULE_htmlAttribute; }
 		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof HTMLParserListener ) ((HTMLParserListener)listener).enterHtmlAttribute(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof HTMLParserListener ) ((HTMLParserListener)listener).exitHtmlAttribute(this);
+		}
+		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof HTMLParserVisitor ) return ((HTMLParserVisitor<? extends T>)visitor).visitHtmlAttribute(this);
 			else return visitor.visitChildren(this);
@@ -817,6 +866,14 @@ public class HTMLParser extends Parser {
 		}
 		@Override public int getRuleIndex() { return RULE_jinjaStatement; }
 		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof HTMLParserListener ) ((HTMLParserListener)listener).enterJinjaStatement(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof HTMLParserListener ) ((HTMLParserListener)listener).exitJinjaStatement(this);
+		}
+		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof HTMLParserVisitor ) return ((HTMLParserVisitor<? extends T>)visitor).visitJinjaStatement(this);
 			else return visitor.visitChildren(this);
@@ -861,6 +918,14 @@ public class HTMLParser extends Parser {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_jinjaExpression; }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof HTMLParserListener ) ((HTMLParserListener)listener).enterJinjaExpression(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof HTMLParserListener ) ((HTMLParserListener)listener).exitJinjaExpression(this);
+		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof HTMLParserVisitor ) return ((HTMLParserVisitor<? extends T>)visitor).visitJinjaExpression(this);
@@ -907,6 +972,14 @@ public class HTMLParser extends Parser {
 		}
 		@Override public int getRuleIndex() { return RULE_jinjaComment; }
 		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof HTMLParserListener ) ((HTMLParserListener)listener).enterJinjaComment(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof HTMLParserListener ) ((HTMLParserListener)listener).exitJinjaComment(this);
+		}
+		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof HTMLParserVisitor ) return ((HTMLParserVisitor<? extends T>)visitor).visitJinjaComment(this);
 			else return visitor.visitChildren(this);
@@ -951,6 +1024,14 @@ public class HTMLParser extends Parser {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_htmlChardata; }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof HTMLParserListener ) ((HTMLParserListener)listener).enterHtmlChardata(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof HTMLParserListener ) ((HTMLParserListener)listener).exitHtmlChardata(this);
+		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof HTMLParserVisitor ) return ((HTMLParserVisitor<? extends T>)visitor).visitHtmlChardata(this);
@@ -998,6 +1079,14 @@ public class HTMLParser extends Parser {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_htmlMisc; }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof HTMLParserListener ) ((HTMLParserListener)listener).enterHtmlMisc(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof HTMLParserListener ) ((HTMLParserListener)listener).exitHtmlMisc(this);
+		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof HTMLParserVisitor ) return ((HTMLParserVisitor<? extends T>)visitor).visitHtmlMisc(this);
@@ -1051,6 +1140,14 @@ public class HTMLParser extends Parser {
 		}
 		@Override public int getRuleIndex() { return RULE_htmlComment; }
 		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof HTMLParserListener ) ((HTMLParserListener)listener).enterHtmlComment(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof HTMLParserListener ) ((HTMLParserListener)listener).exitHtmlComment(this);
+		}
+		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof HTMLParserVisitor ) return ((HTMLParserVisitor<? extends T>)visitor).visitHtmlComment(this);
 			else return visitor.visitChildren(this);
@@ -1096,6 +1193,14 @@ public class HTMLParser extends Parser {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_script; }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof HTMLParserListener ) ((HTMLParserListener)listener).enterScript(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof HTMLParserListener ) ((HTMLParserListener)listener).exitScript(this);
+		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof HTMLParserVisitor ) return ((HTMLParserVisitor<? extends T>)visitor).visitScript(this);
@@ -1144,6 +1249,14 @@ public class HTMLParser extends Parser {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_style; }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof HTMLParserListener ) ((HTMLParserListener)listener).enterStyle(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof HTMLParserListener ) ((HTMLParserListener)listener).exitStyle(this);
+		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof HTMLParserVisitor ) return ((HTMLParserVisitor<? extends T>)visitor).visitStyle(this);

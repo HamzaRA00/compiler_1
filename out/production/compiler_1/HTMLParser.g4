@@ -38,7 +38,7 @@ htmlContent
     ;
 
 htmlAttribute
-    : TAG_NAME (TAG_EQUALS (ATTVALUE_VALUE | jinjaExpression | jinjaStatement))?
+    : TAG_NAME (TAG_EQUALS (ATTVALUE_VALUE | ATTVALUE_JINJA_EXPRESSION | ATTVALUE_JINJA_STATEMENT | jinjaExpression | jinjaStatement))?
     ;
 
 jinjaStatement

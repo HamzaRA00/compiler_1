@@ -1,4 +1,4 @@
-// Generated from C:/Users/BIG BANG/IntelliJ/PythonLexerParser/src/antlr/FinalPythonParser.g4 by ANTLR 4.13.2
+// Generated from src/antlr/FinalPythonParser.g4 by ANTLR 4.13.2
 package antlr;
 import org.antlr.v4.runtime.tree.ParseTreeVisitor;
 

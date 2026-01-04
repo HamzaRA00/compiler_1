@@ -25,7 +25,7 @@ STYLE_OPEN: '<style' .*? '>' -> pushMode(STYLE);
 
 TAG_OPEN: '<' -> pushMode(TAG);
 
-HTML_TEXT: ~['<{]+ | '{';
+HTML_TEXT: ~[<{]+ | '{';
 
 JINJA_STATEMENT: '{%' .*? '%}';
 JINJA_EXPRESSION: '{{' .*? '}}';

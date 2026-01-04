@@ -24,12 +24,10 @@ public class Main {
     }
 
     private static void testHtml() throws java.io.IOException {
-        testHtmlFile("test.html");
         testHtmlFile("index.html");
         testHtmlFile("add.html");
         testHtmlFile("detail.html");
         testHtmlFile("404.html");
-        testHtmlFile("new_test.html");
     }
 
     private static void testHtmlFile(String fileName) throws java.io.IOException {

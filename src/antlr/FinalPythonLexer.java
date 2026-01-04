@@ -1,4 +1,4 @@
-// Generated from C:/Users/BIG BANG/IntelliJ/PythonLexerParser/src/antlr/FinalPythonLexer.g4 by ANTLR 4.13.2
+// Generated from src/antlr/FinalPythonLexer.g4 by ANTLR 4.13.2
 package antlr;
 
 import java.util.Stack;
@@ -261,7 +261,13 @@ public class FinalPythonLexer extends Lexer {
 	private void NL_action(RuleContext _localctx, int actionIndex) {
 		switch (actionIndex) {
 		case 6:
-			 handleNewline(getText()); 
+			 
+			    if (nestingLevel > 0) {
+			        skip();
+			    } else {
+			        handleNewline(getText()); 
+			    }
+
 			break;
 		}
 	}

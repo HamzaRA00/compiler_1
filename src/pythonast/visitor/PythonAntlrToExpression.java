@@ -3,6 +3,8 @@ package pythonast.visitor;
 import antlr.FinalPythonParser;
 import antlr.FinalPythonParserBaseVisitor;
 import org.antlr.v4.runtime.Token;
+import org.antlr.v4.runtime.tree.ParseTree;
+import org.antlr.v4.runtime.tree.TerminalNode;
 import pythonast.Expression;
 import pythonast.atoms.*;
 import pythonast.expr.*;
@@ -126,10 +128,17 @@ public class PythonAntlrToExpression extends FinalPythonParserBaseVisitor<Expres
         Expression base = visit(ctx.getChild(0));
         PostfixExpr p = new PostfixExpr(line(ctx.start), base);
         int n = ctx.getChildCount();
-        for (int i = 0; i < n; i++) {
-            if (ctx.getChild(i) instanceof FinalPythonParser.ArgumentContext) {
-                Expression arg = visit(ctx.getChild(i));
-                p.addArg(arg);
+        for (int i = 1; i < n; i++) {
+            ParseTree child = ctx.getChild(i);
+            if (child instanceof FinalPythonParser.ArgumentContext) {
+                p.addArg(visit(child));
+            } else if (child instanceof FinalPythonParser.ExprContext) {
+                p.addArg(visit(child));
+            } else if (child instanceof TerminalNode) {
+                TerminalNode tn = (TerminalNode) child;
+                if (tn.getSymbol().getType() == FinalPythonParser.NAME) {
+                    p.addArg(new NameAtom(line(tn.getSymbol()), tn.getText()));
+                }
             }
         }
         return p;
@@ -170,12 +179,12 @@ public class PythonAntlrToExpression extends FinalPythonParserBaseVisitor<Expres
 
     @Override
     public Expression visitTupleOrParen(FinalPythonParser.TupleOrParenContext ctx) {
+        if (ctx.expr().size() == 1 && ctx.COMMA().isEmpty()) {
+            return visit(ctx.expr(0));
+        }
         TupleOrParen tuple = new TupleOrParen(line(ctx.start));
-        int n = ctx.getChildCount();
-        for (int i = 0; i < n; i++) {
-            if (ctx.getChild(i) instanceof FinalPythonParser.ExprContext) {
-                tuple.add(visit(ctx.getChild(i)));
-            }
+        for (FinalPythonParser.ExprContext e : ctx.expr()) {
+            tuple.add(visit(e));
         }
         return tuple;
     }
@@ -183,13 +192,22 @@ public class PythonAntlrToExpression extends FinalPythonParserBaseVisitor<Expres
     @Override
     public Expression visitListLiteral(FinalPythonParser.ListLiteralContext ctx) {
         ListLiteral list = new ListLiteral(line(ctx.start));
-        int n = ctx.getChildCount();
-        for (int i = 0; i < n; i++) {
-            if (ctx.getChild(i) instanceof FinalPythonParser.ExprContext) {
-                list.add(visit(ctx.getChild(i)));
-            }
+        for (FinalPythonParser.ExprContext e : ctx.expr()) {
+            list.add(visit(e));
         }
         return list;
+    }
+
+    @Override
+    public Expression visitDictLiteral(FinalPythonParser.DictLiteralContext ctx) {
+        DictLiteral dict = new DictLiteral(line(ctx.start));
+        for (FinalPythonParser.EntryContext e : ctx.entry()) {
+            Expression entry = visit(e);
+            if (entry instanceof DictEntry) {
+                dict.add((DictEntry) entry);
+            }
+        }
+        return dict;
     }
 
     @Override
@@ -265,6 +283,11 @@ public class PythonAntlrToExpression extends FinalPythonParserBaseVisitor<Expres
 
     @Override
     public Expression visitPositionalArg(FinalPythonParser.PositionalArgContext ctx) {
+        return visit(ctx.expr());
+    }
+
+    @Override
+    public Expression visitKeywordArg(FinalPythonParser.KeywordArgContext ctx) {
         return visit(ctx.expr());
     }
 }

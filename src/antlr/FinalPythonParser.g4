@@ -24,8 +24,8 @@ small_stmt
     ;
 
 expr_stmt
-    : expr         #AssignStmt
-    | expr (ASSIGN expr)+   #ExprOnlyStmt
+    : expr (ASSIGN expr)+   #AssignStmt
+    | expr                  #ExprOnlyStmt
     ;
 annotated_assignment
     : NAME COLON expr (ASSIGN expr)?   #AnnotatedAssign
@@ -78,8 +78,8 @@ with_stmt   : WITH with_item (COMMA with_item)* COLON suite                     
 with_item   : expr (AS expr)?                                                                                    ;
 
 func_def : DEF NAME LPAREN (parameters)? RPAREN (ARROW expr)? COLON suite                               ;
-parameters : param (COMMA param)* ;
-param : name=NAME (COLON expr)? (ASSIGN expr)? ;
+parameters : (NL)* param (COMMA (NL)* param)* (COMMA (NL)*)? ;
+param : name=NAME ((NL)* COLON (NL)* expr)? ((NL)* ASSIGN (NL)* expr)? ;
 
 class_def : CLASS NAME (LPAREN (expr (COMMA expr)*)? RPAREN)? COLON suite                            ;
 
@@ -95,15 +95,15 @@ suite
     ;
 
 argument
-    : expr               #PositionalArg
-    | NAME ASSIGN expr   #KeywordArg
+    : (NL)* expr               #PositionalArg
+    | (NL)* NAME (NL)* ASSIGN (NL)* expr   #KeywordArg
     ;
 
 expr
     : atom                                                    #AtomExpr
-    | expr (LBRACK (expr (COLON expr?)?)? RBRACK
-                   | DOT NAME
-                   | LPAREN (argument (COMMA argument)*)? RPAREN)+  #PostfixExpr
+    | expr ((NL)* LBRACK (NL)* (expr (COLON (NL)* expr?)?)? (NL)* RBRACK
+                   | (NL)* DOT (NL)* NAME
+                   | (NL)* LPAREN (argument (COMMA argument)*)? (COMMA (NL)*)? RPAREN)+  #PostfixExpr
     | (PLUS|MINUS|NOT|TELTA) expr                             #UnaryExpr
     | expr POWER expr                                         #PowerExpr
     | expr (STAR|SLASH|PERCENT|DIV_DIV) expr                  #MulDivExpr
@@ -128,10 +128,10 @@ atom
     | NONE                                              #NoneAtom
     | TRUE                                              #TrueAtom
     | FALSE                                             #FalseAtom
-    | LBRACK (expr (COMMA expr)*)? RBRACK               #ListLiteral
-    | LBRACE (NL)* (entry (COMMA (NL)* entry)*)? (COMMA)? (NL)* RBRACE  #DictLiteral
+    | LBRACK (NL)* (expr ( (NL)* COMMA (NL)* expr )* (NL)* (COMMA)? (NL)* )? RBRACK               #ListLiteral
+    | LBRACE (NL)* (entry ( (NL)* COMMA (NL)* entry )* (NL)* (COMMA)? (NL)* )? RBRACE  #DictLiteral
     | LPAREN expr comp_for RPAREN                       #GeneratorExpr
-    | LPAREN (expr (COMMA expr)*)? RPAREN               #TupleOrParen
+    | LPAREN (NL)* (expr ( (NL)* COMMA (NL)* expr )* (NL)* (COMMA)? (NL)* )? RPAREN               #TupleOrParen
     | list_comp                                         #ListComp
     | dict_comp                                         #DictComp
     ;

@@ -142,4 +142,10 @@ COMMENT: '#' ~[\r\n]* -> skip;
 WS: [ \t]+ -> skip; // Skip whitespace within lines
 
 // Newline with Indentation Logic
-NL: ('\r'? '\n' [ \t]*)+ { handleNewline(getText()); };
+NL: ('\r'? '\n' [ \t]*)+ { 
+    if (nestingLevel > 0) {
+        skip();
+    } else {
+        handleNewline(getText()); 
+    }
+};
